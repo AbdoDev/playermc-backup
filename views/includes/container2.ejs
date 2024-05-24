@@ -1,0 +1,194 @@
+<style>
+    #inputid::placeholder {
+        color: #b6bdc5;
+    }
+    #search {
+        background-color: #236DAD;
+    }
+    code {
+        color: #7cb6e9 !important;
+        background-color: #333 !important;
+        cursor: pointer;
+    }
+    .tippy-box[data-theme~='txtt'] {
+        font-size: 16px;
+        background-color: #1f5c96;
+        font-weight: bold;
+    }
+    input {
+        border: none !important;
+    }
+    .nunito-800 {
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    }
+    .toast {
+        background: linear-gradient(to right, #00b09b, #96c93d),
+    }
+    a {
+        text-decoration: none !important;
+    }
+    .nowrptxt {
+       text-align: left !important;
+    }
+    .py-1 {
+        padding-bottom: .25rem !important;
+    }
+</style>
+
+
+<div class="container">
+    <div class="row" style="justify-content: center;">
+        <div class="col-md-4">
+            <label class="fw-bold" for="inputid">Enter Player Username:</label>
+            <div class="lbc"></div>
+            <input autocomplete="off" onkeyup="isEnabled()" placeholder="type player name" maxlength="22" type="text" id="inputid" class="form-control " style="color: #fff; background-color: #343a3f;">
+            <br>
+            <div id="tbzh" style="float: right;">
+                <button id="search" style="cursor: pointer;" onclick="redirect()" class="form-control btn btn-primary smallbtn smallerinp pull-right" disabled>
+                    <i class="fa-solid fa-magnifying-glass"></i> Search
+                    <div class="ball-pulse smallBall" style="display: none;">
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="justify-content: center; margin-top: 4rem;">
+        <div class="col-md-7 withdarker">
+            <p><h1 class="nunito-800"><% if(locals.playername.includes("0KKK")){ %>
+                <%= locals.playername %><span title="Moderator">👌</span>
+                <hr class="mt-0">
+            <% } else{ %>
+                <%= locals.playername %>
+                <hr class="mt-0">
+            <% } %></h1></p>
+            <div class="container text-center">
+                <div class="row float-start">
+                    <div class="col-sm nowrptxt">
+                        <div class="card mb-3">
+                            <div class="card-header py-2"><strong>Profile</strong> 
+                            <button onclick="toast()" style="padding: 0; color: #7ba7ce;" type="button" class="btn float-end btn-link">
+                                <span class="fa-solid fa-crown"></span> Claim this profile</button>
+                            </div>
+                            <div class="card-body py-1">
+                                <p>
+                                    <span class="fas fa-asterisk"></span> <strong>UUID</strong>: 
+                                    <span class="resulth" style="color: #7ba7ce;"><%= locals.uuid %></span>                             
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-header py-1"><strong>Capes</strong></div>
+                            <div class="card-body py-1">
+                                <p>
+                                    <% if(!locals.opurl && !locals.mcurl){ %>
+                                        <strong>This user has no capes</strong>
+                                    <% } %>
+                                    
+                                        <% if(!locals.opurl ){ %>
+                                            <% } else{ %>
+                                            <a href="/capes"> <img id="opcape"  src="<%= locals.opurl %>" 
+                                                style="
+                                                    image-rendering: pixelated;
+                                                    height: 63.99px;
+                                                    width: 40px;
+                                                    "
+                                                class="rounded " alt="playermc">
+                                                </a>
+                                            <%} if(!locals.mcurl ){ %>
+                                            <% } else{ %>
+                                            <a href="/capes"> <img id="mccape" src="<%= locals.mcurl %>" 
+                                                style="
+                                                    image-rendering: pixelated;
+                                                    height: 63.99px;
+                                                    width: 40px;
+                                                    "
+                                                class="rounded " alt="playermc">
+                                                </a>
+                                            <% } %>
+                                    </span>
+                                </p>
+                                </p>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card mb-3">
+                            <div class="card-header py-1"><strong>Preview</strong></div>
+                            <div class="card-body py-1">
+                                <p><img id="previewimg" src="https://mc-heads.net/body/<%= locals.uuid %>/128.png" class="rounded" style="margin-right: 30px;" alt="playermc"> 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<script>
+        tippy('#ttip', {
+        content: `Sometimes the message "Couldn't find any profile with name" appears, knowing that you are trying to search for a player name and it already exists, this is due to Mojang API because we cannot request player data consecutive times, we will try to solve this problem`,
+        theme: 'txtt',
+        interactive: true,
+        inertia: true,
+        arrow: false,
+        trigger: 'click',
+      });
+       function toast() {
+        Toastify({
+        duration: 1500,
+        text: "this feature coming soon!",
+        newWindow: true,
+        close: true,
+        style: {
+            background: 'linear-gradient(180deg,#007eff 0%, #004f9d 80%)',
+            color: 'white',
+            fontweight: 'bold'
+        },
+        gravity: "top", // `top` or `bottom`
+        position: "center", // `left`, `center` or `right`
+        }).showToast();
+       }
+
+       const opcape = document.getElementById('opcape')
+       const previewimg = document.getElementById('previewimg') 
+
+       opcape.addEventListener("mouseleave", ()=> {
+        previewimg.style.width = '128px'
+        previewimg.style.height = '307px'
+        previewimg.src = 'https://mc-heads.net/body/<%= locals.uuid %>/128.png'
+       })
+
+       opcape.addEventListener("mouseover", ()=> {
+        previewimg.style.width = '105.45px'
+        previewimg.style.height = '168.72px'
+        previewimg.style.imageRendering = 'pixelated'
+        previewimg.src = '<%= locals.opurl %>'
+       })
+
+
+
+</script>
+<script>
+       const mccape = document.getElementById('mccape')
+    //    const previewimg = document.getElementById('previewimg')
+
+    mccape.addEventListener("mouseleave", ()=> {
+        previewimg.style.width = '128px'
+        previewimg.style.height = '307px'
+        previewimg.src = 'https://mc-heads.net/body/<%= locals.uuid %>/128.png'
+       })
+
+       mccape.addEventListener("mouseover", ()=> {
+        previewimg.style.width = '105.45px'
+        previewimg.style.height = '168.72px'
+        previewimg.style.imageRendering = 'pixelated'
+        previewimg.src = '<%= locals.mcurl %>'
+       })
+</script>

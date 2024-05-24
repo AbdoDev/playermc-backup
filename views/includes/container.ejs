@@ -1,0 +1,51 @@
+<style>
+    #inputid::placeholder {
+        color: #b6bdc5;
+    }
+    #search {
+        background-color: #236DAD;
+    }
+    input {
+        border: none !important;
+    }
+    code {
+        color: #7cb6e9 !important;
+        background-color: #333 !important;
+        cursor: pointer;
+    }
+    .tippy-box[data-theme~='txtt'] {
+        font-size: 16px;
+        background-color: #1f5c96;
+        font-weight: bold;
+    }
+</style>
+
+<div class="container">
+    <div class="row" style="justify-content: center;">
+        <div class="col-md-4">
+            <label class="fw-bold" for="inputid">Enter Player Username:</label>
+            <div class="lbc"></div>
+            <input autocomplete="off" onkeyup="isEnabled()" placeholder="type player name" maxlength="22" type="text" id="inputid" class="form-control " 
+            style="color: #fff; background-color: #343a3f;">
+            <br>
+            <div id="tbzh" style="float: right;">
+                <button id="search" style="cursor: pointer;" onclick="redirect()" class="form-control btn btn-primary smallbtn smallerinp pull-right" disabled>
+                    <i class="fa-solid fa-magnifying-glass"></i> Search
+                    <div class="ball-pulse smallBall" style="display: none;">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    
+<script>
+    tippy('#ttiip', {
+    content: `Sometimes the message "Couldn't find any profile with name" appears, knowing that you are trying to search for a player name and it already exists, this is due to Mojang API because we cannot request player data consecutive times, we will try to solve this problem`,
+    theme: 'txtt',
+    interactive: true,
+    inertia: true,
+    arrow: false,
+    trigger: 'click',
+  });
+</script>
+
